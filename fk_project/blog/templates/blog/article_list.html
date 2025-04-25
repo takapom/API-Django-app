@@ -1,14 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>記事一覧</title>
+  <link rel="stylesheet" href="{% static 'blog/article_list.css' %}">
 </head>
 <body>
-  <h1>記事一覧</h1>
+  <h1>Todoリスト</h1>
   <ul>
     {% for article in articles %}
       <li><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></li>
     {% endfor %}
   </ul>
+  <a href="{% url 'article_create' %}">記事作成</a>
 </body>
 </html>

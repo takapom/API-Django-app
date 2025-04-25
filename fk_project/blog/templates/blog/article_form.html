@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo作成</title>
+  <link rel="stylesheet" href="{% static 'blog/article_form.css' %}">
+</head>
+<body class="main-body">
+  <h1 class="page-title">Todoリスト作成</h1>
+
+  <form method="POST" class="todo-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="create-button">作成</button>
+  </form>
+
+  <a class="back-link" href="{% url 'article_list' %}">← 戻る</a>
+</body>
+</html>
