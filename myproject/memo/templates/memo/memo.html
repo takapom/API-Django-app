@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>メモアプリ</title>
+  <link rel="stylesheet" href="{% static 'memo/style.css' %}">
+</head>
+<body>
+  <h1>Todoアプリ(Django)</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">保存</button>
+  </form>
+
+  <h2>保存されたメモ一覧</h2>
+
+  <table class="memo-table">
+    <thead>
+      <tr>
+        <th>内容</th>
+        <th>作成日時</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for memo in memos %}
+        <tr>
+          <td>{{ memo.content }}</td>
+          <td>{{ memo.created_at }}</td>
+          <td><a href="{% url 'delete_memo' memo.id %}">削除</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
+
+

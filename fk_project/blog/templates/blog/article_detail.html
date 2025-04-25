@@ -1,0 +1,4 @@
+<h1>{{ article.title }}</h1>
+<p>{{ article.content }}</p>
+<p>カテゴリ: {{ article.category.name }}</p>
+<a href="{% url 'article_list' %}">← 一覧に戻る</a>
