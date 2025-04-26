@@ -1,1 +1,38 @@
-ここ
+処理の手順
+
+①まず起動時にトップページを表示
+起動するとviews.pyのarticle_list()にrequestが送られる
+
+②以下はview.pyでデータベースからデータを取得する(外部キーも取得)
+次にarticle_list.htmlを生成する。
+
+def article_list(request):
+articles = Article.objects.select_related('category')
+return render(request, 'blog/article_list.html', {'articles': articles})
+
+③次にarticle_list.htmlの中で以下の部分が発火したとする。
+<li><a href="{% url 'article_detail' article.id %}">{{ article.title }}</a></li>
+このとき、URLに'article_detail' article.idが入り、urls.pyの   path('article/<int:pk>/', views.article_detail, name='article_detail'),が発火する。
+そして、views.article_detailが発火する。
+
+④次に、urlからidを取得する。(これは③のint:pkでURLに渡して以下の関数で受け取っている)
+そしてarticle_detail.htmlが起動する。
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, 'blog/article_detail.html', {'article': article})
+
+
+・よってこのプロジェクトの処理手順は
+トップページ(アプリのurls.pyに定義)→views.pyにて関数呼び出し→htmlファイル発火→views.pyのある関数が発火される、、、の繰り返し！
+
+・forms.pyはフォームを簡単に表示させるためのもの
+class ArticleForm(forms.ModelForm):
+class Meta:
+    model = Article
+    fields = ['title', 'content', 'category']
+
+urlpatterns = [
+    path('', views.article_list, name='article_list'),
+    path('article/<int:pk>/', views.article_detail, name='article_detail'),
+    path('article/new/', views.article_create, name='article_create'),
+]

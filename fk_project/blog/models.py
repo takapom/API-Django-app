@@ -14,3 +14,11 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+# 1対1の練習のため、リマインダー機能の処理を定義
+class Reminder(models.Model):
+    memo = models.OneToOneField(Article ,on_delete=models.CASCADE)
+    remind_at = models.DateTimeField()
+
+    def __str__(self):
+        return f'{self.memo.content}を{self.remind_at}にリマインド'

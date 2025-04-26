@@ -1,4 +1,28 @@
-<h1>{{ article.title }}</h1>
-<p>{{ article.content }}</p>
-<p>カテゴリ: {{ article.category.name }}</p>
-<a href="{% url 'article_list' %}">← 一覧に戻る</a>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ article.title }}</title>
+    <link rel="stylesheet" href="{% static 'blog/article_detail.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">{{ article.title }}</h1>
+        <p class="content">{{ article.content }}</p>
+        <p class="category">カテゴリ: {{ article.category.name }}</p>
+
+        {% if reminder %}
+            <p class="reminder">リマインド予定日: {{ reminder.remind_at }}</p>
+        {% else %}
+            <p class="no-reminder">リマインダーは設定されていません</p>
+        {% endif %}
+
+        <div class="buttons">
+            <a href="{% url 'article_delete' article.pk %}" class="delete-button">この記事を削除する</a>
+            <a href="{% url 'article_list' %}" class="back-button">← 一覧に戻る</a>
+        </div>
+    </div>
+</body>
+</html>
