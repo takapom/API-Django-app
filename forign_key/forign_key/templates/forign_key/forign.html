@@ -1,0 +1,21 @@
+# <!DOCTYPE html>
+# <html>
+# <head>
+#   <title>メモアプリ</title>
+#   <link rel="stylesheet" href="{% static 'memo/style.css' %}">
+# </head>
+# <body style="text-align: center;">
+#   <h1>メモを追加</h1>
+#   <form method="POST">
+#     {% csrf_token %}
+#     {{ form.as_p }}
+#     <button type="submit">保存</button>
+#   </form>
+#   <h2>保存されたメモ一覧</h2>
+#   <ul>
+#     {% for memo in memos %}
+#       <li>{{ memo.content }}（{{ memo.created_at }}）
+#     {% endfor %}
+#   </ul>
+# </body>
+# </html>

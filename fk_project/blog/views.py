@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Article, Reminder
 from django.shortcuts import get_object_or_404
-from .forms import ArticleForm
+from .forms import ArticleForm, forms
 
 
 def article_list(request):
@@ -41,3 +41,8 @@ def article_delete(request, pk):
     article.delete()
     return redirect('article_list') #トップページへ遷移
 
+def form_post(request):
+    form = forms.PostModelForm()
+    return render(
+        request, 'formapp/'
+    )

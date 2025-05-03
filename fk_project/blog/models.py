@@ -1,6 +1,6 @@
 from django.db import models
 
-
+# カテゴリモデル処理を定義
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
@@ -22,3 +22,9 @@ class Reminder(models.Model):
 
     def __str__(self):
         return f'{self.memo.content}を{self.remind_at}にリマインド'
+
+# ModelsFormの勉強用
+class Post(models.Model):
+    name = models.CharField(max_length=10)
+    title = models.CharField(max_length=255)
+    memo = models.CharField(max_length=255)
