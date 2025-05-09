@@ -4,6 +4,7 @@
         <meta charset="utf-8">
     </head>
     <body>
+        <p>{{ user }}:{{ user.is_authenticated }}</p>
         <nav>
             <a href="{% url 'user:regist' %}">登録画面</a>
         </nav>
