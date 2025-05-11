@@ -1,9 +1,67 @@
 {% extends 'user/base.html' %}
+
 {% block content %}
-<h1>登録画面</h1>
-<form method="POST">
-    {% csrf_token %}
-    {{ user_form.as_p }}
-    <input type="submit" value="登録">
-</form>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        margin: 0;
+        padding: 0;
+    }
+
+    .register-container {
+        background-color: white;
+        padding: 40px 30px;
+        margin: 80px auto;
+        max-width: 450px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .register-container h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+    }
+
+    .register-container p {
+        margin-bottom: 15px;
+    }
+
+    .register-container input[type="text"],
+    .register-container input[type="email"],
+    .register-container input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-top: 5px;
+    }
+
+    .register-container input[type="submit"] {
+        width: 100%;
+        background-color: #f97316;
+        color: white;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .register-container input[type="submit"]:hover {
+        background-color: #ea580c;
+    }
+</style>
+
+<div class="register-container">
+    <h1>登録画面</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input type="submit" value="登録">
+    </form>
+</div>
 {% endblock %}

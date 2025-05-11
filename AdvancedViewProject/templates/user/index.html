@@ -1,0 +1,7 @@
+{% extends 'user/base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+    <p>{{ user }}さん！こんにちは！</p>
+{% endif %}
+{% comment %} <h1>ログイン画面</h1> {% endcomment %}
+{% endblock %} 

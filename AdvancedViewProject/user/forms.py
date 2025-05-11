@@ -30,3 +30,18 @@ class UserLoginForm(forms.Form):
         if password1 != password2:
             raise ValidationError
         return cleaned_date
+    
+# パスワードをリセットするためのフォームを作成
+class RequestPasswordResetForm(forms.Form):
+    email = forms.EmailField(
+        label="メールアドレス",
+        widget=forms.EmailInput()
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+           #データベースでメールアドレスの存在確認
+        if not User.objects.filter(email=email).exists():
+            raise ValidationError('このメールアドレスのユーザーは存在しません')
+        return email
+
