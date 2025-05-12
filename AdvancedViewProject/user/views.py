@@ -4,7 +4,7 @@
 # ②もしTrueならその後の処理を実行する
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserForm, UserLoginForm
+from .forms import UserForm, UserLoginForm, RequestPasswordResetForm, SetNewPasswordForm
 # 以下はDjangoのデフォのバリデーション処理
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -72,6 +72,8 @@ def request_password_reset(request):
         #Userはデータベースからemailが一致するユーザーが欲しい(userの検索)
         user = get_object_or_404(User, email=email)
         # 新しいトークンを作成
+        # createdがtrueの場合、そのユーザーが初めてパスワードリセットを要求したと言うこと
+        #createdがfalseの場合、そのユーザーが以前パスワードをリセットしたと言うこと→if文入り、以前のトークンを更新する処理
         password_reset_token, created = PasswordResetToken.objects.get_or_create(user=user)
         if not created:
             password_reset_token.token = uuid.uuid4()
@@ -83,6 +85,25 @@ def request_password_reset(request):
     return render(request, 'user/password_reset_form.html', context={
         'reset_form': form,
     })
+
+# リセットトークンのURLに対してviewの定義
+def reset_password(request, token):
+    password_reset_token = get_object_or_404(
+        PasswordResetToken,
+        token=token,
+        used=False,
+    )
+
+    form = SetNewPasswordForm(request.POST or None
+                              )
+    return render(request, 'user/password_reset_confirm.html')
+
+
+
+
+
+
+
 
 # 以下はバリデーションの内部の仕組み
 

@@ -11,6 +11,6 @@ urlpatterns = [
     path('index/', views.index, name='index'),
     path('info/', views.info, name='info'),
     #URLをリセットするためのパスワードを定義
-    path('request_password_reset/', views.request_password_reset, name='request_password_reset')
-    
+    path('request_password_reset/', views.request_password_reset, name='request_password_reset'),
+    path('reset_password/<uuid:token>', views.reques_password_reset, name='reset_password'),
 ]

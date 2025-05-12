@@ -19,5 +19,6 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # 「URLが /api/ で始まるリクエストは、api_app.urls に書かれているURL設定に渡しますよ」
     path('api/', include('api_app.urls')),
 ]

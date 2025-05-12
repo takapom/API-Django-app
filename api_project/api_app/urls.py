@@ -5,6 +5,7 @@ from .views import TodoViewSet
 router = routers.DefaultRouter()
 router.register('todos', TodoViewSet)
 
+#router.urlsとすると /todos/ のようなURLにアクセスしたときに、自動で TodoViewSet が呼び出されるようになります。
 urlpatterns = [
     path('', include(router.urls))
 ]
